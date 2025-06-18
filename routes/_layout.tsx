@@ -1,4 +1,4 @@
-import { FreshContext } from "$fresh/server.ts";
+
 import Header from "../components/Header.tsx";
 
 import { PageProps } from "$fresh/server.ts";
