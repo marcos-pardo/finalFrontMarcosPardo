@@ -31,7 +31,7 @@ const Fav : FunctionalComponent<state> =({id}) =>{
     }
     return (
         <div>
-            <button type="button" onClick={botonFavorito}>{isFav ? "Borrar": "Añadir"}</button>
+            <span type="button" onClick={botonFavorito}>{isFav ? <span class="star fav">★</span>: <span class="star">★</span>}</span>
         </div>
     )
 }
