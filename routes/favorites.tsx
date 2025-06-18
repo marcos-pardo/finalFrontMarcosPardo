@@ -9,14 +9,19 @@ type Character ={
 }
 
 export const handler: Handlers<{characters: Character[]}> ={
-  GET: async ( _req:Request,ctx:FreshContext) =>{
+  GET: async ( req:Request,ctx:FreshContext) =>{
 
-   
       const response = await axios.get("https://hp-api.onrender.com/api/characters")
       const characters:Character[] = response.data
 
-      return ctx.render({characters})
-      
+      const cookie = req.headers.get("Cookie")?.split("; ").find((e)=>e.trim().startsWith("favorites"))
+    let arrCookie : string[] =[]
+    if(cookie) arrCookie = JSON.parse(decodeURIComponent(cookie.split("=")[1]))
+
+        const filtrado = characters.filter((e)=> arrCookie.includes(e.id))
+
+        return ctx.render({characters:filtrado})
+  
     } 
   }
 

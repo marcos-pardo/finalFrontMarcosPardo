@@ -1,6 +1,7 @@
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import axios from "axios"
-import CharAll from "../components/CharAll.tsx";
+import CharId from "../../components/CharId.tsx";
+
 
 type Character ={
   id:string,
@@ -11,9 +12,12 @@ type Character ={
 export const handler: Handlers<{characters: Character[]}> ={
   GET: async ( _req:Request,ctx:FreshContext) =>{
 
+    const {id} = ctx.params
+
    
-      const response = await axios.get("https://hp-api.onrender.com/api/characters")
+      const response = await axios.get(`https://hp-api.onrender.com/api/character/${id}`)
       const characters:Character[] = response.data
+      console.log(characters)
 
       return ctx.render({characters})
       
@@ -23,7 +27,7 @@ export const handler: Handlers<{characters: Character[]}> ={
   const Page = (props:PageProps<{characters: Character[]}>) =>{
     return(
 <div>
-  <CharAll characters={props.data.characters}/>
+  <CharId characters={props.data.characters}/>
 </div>
     )
   }
